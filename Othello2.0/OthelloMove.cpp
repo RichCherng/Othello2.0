@@ -25,7 +25,8 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       //string r = move.substr(1, move.find(","));
       mRow = atoi(move.substr(1, move.find(",")).c_str());
       //cout << mRow;
-      mCol = atoi( move.substr( move.find(",") + 2, move.find(")")).c_str() );
+      mCol = atoi( move.substr( move.find(",") + 2,
+         move.find(")")).c_str() );
       //need to check inbound
       return *this;
    }

@@ -16,11 +16,14 @@ int main(int argc, char* argv[]) {
    OthelloView v(&board); // a View for outputting the board via operator<<
    string userInput; // a string to hold the user's command choice
    vector<OthelloMove *> possMoves; // a holder for possible moves
+   OthelloMove *m = board.CreateMove();
 
    
    // Start with this DEBUGGING CODE to make sure your basic OthelloMove and 
    // OthelloBoard classes work, then remove it when you are ready to work
    // on the real main.
+
+   /*
    cout << "Initial board:" << endl;
    cout << v << endl;
    OthelloMove *m = board.CreateMove();
@@ -41,6 +44,7 @@ int main(int argc, char* argv[]) {
    board.ApplyMove(m);
    cout << endl << v << endl;
    // END OF DEBUGGING CODE
+   */
 
 
 
@@ -57,9 +61,15 @@ int main(int argc, char* argv[]) {
       cout << endl;
       // Ask to input a command
       string a;
-      cin >> a;
+      getline(std::cin, a);
       *m = a;
       board.ApplyMove(m);
+
+     for (OthelloMove* i : possMoves) {
+         delete i;
+      }
+      possMoves.clear();
+      system("pause");
       // Command loop:
          // move (r,c)
          // undo n
