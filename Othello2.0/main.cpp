@@ -58,6 +58,8 @@ int main(int argc, char* argv[]) {
       // Ask to input a command
       string a;
       cin >> a;
+      *m = a;
+      board.ApplyMove(m);
       // Command loop:
          // move (r,c)
          // undo n
