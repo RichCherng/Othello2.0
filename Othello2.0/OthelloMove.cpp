@@ -1,6 +1,7 @@
 
-#include "OthelloMove.h"
 #include <sstream>
+#include "OthelloMove.h"
+int OthelloMove::mOnHeap = 0;
 
 using namespace std;
 
@@ -22,8 +23,10 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
    }
    else {
       //string r = move.substr(1, move.find(","));
-      int mRow = atoi(move.substr(1, move.find(",")).c_str());
-      int mCol = atoi( move.substr( move.find(",") + 2, move.find(")")).c_str() );
+      mRow = atoi(move.substr(1, move.find(",")).c_str());
+      //cout << mRow;
+      mCol = atoi( move.substr( move.find(",") + 2, move.find(")")).c_str() );
+      //need to check inbound
       return *this;
    }
 }
@@ -33,9 +36,13 @@ bool operator==(const OthelloMove &lhs, const OthelloMove &rhs) {
 }
 
 OthelloMove::operator std::string() const {
-   if (mRow == -1 && mCol == -1)
+   if (mRow == -1 && mCol == -1) {
+      //cout << mRow << endl << mCol << endl;
       return "pass";
+   }
    std::ostringstream s;
    s << "(" << mRow << ", " << mCol << ")";
    return s.str();
 }
+
+

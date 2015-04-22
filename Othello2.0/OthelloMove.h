@@ -84,6 +84,9 @@ public:
 
    // Returns true if the move represents a Pass.
    // TO DO: fill in this method.
-   inline bool IsPass() const {/* return true if this move is a "pass" */}
+   inline bool IsPass() const {
+      /* return true if this move is a "pass" */
+      return mRow == -1 && mCol == -1;
+   }
 };
 #endif

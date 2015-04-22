@@ -101,6 +101,8 @@ public:
 
    // Returns true if the row and col are in the bounds of the game board.
    inline static bool InBounds(int row, int col) {
+      return (row < BOARD_SIZE) && (row >= 0) &&
+         (col < BOARD_SIZE) && (col >= 0);
       /* return true if row and col are in-bounds*/
    }
 

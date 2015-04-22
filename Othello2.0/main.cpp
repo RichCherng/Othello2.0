@@ -45,15 +45,19 @@ int main(int argc, char* argv[]) {
 
 
 
-
    // Main loop
    do {
 	   // Print the game board using the OthelloView object
-
+      cout << v << endl;
       // Print all possible moves
-
+      board.GetPossibleMoves(&possMoves);
+      for (OthelloMove* i : possMoves) {
+         cout << (string)(*i) << " ";
+      }
+      cout << endl;
       // Ask to input a command
-
+      string a;
+      cin >> a;
       // Command loop:
          // move (r,c)
          // undo n

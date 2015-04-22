@@ -79,7 +79,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OthelloBoard.cpp" />
     <ClCompile Include="OthelloMove.cpp" />
+    <ClCompile Include="OthelloView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OthelloBoard.h" />
