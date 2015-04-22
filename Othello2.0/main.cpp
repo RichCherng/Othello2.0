@@ -68,14 +68,17 @@ int main(int argc, char* argv[]) {
          if (!ss.eof()) {
             ss >> command;
             *m = command;
-            bool valid = true;
-            for (OthelloMove* i : possMoves) {
-               if (i == m) {
-                  valid = false;
-                  cout << "Invalid Input";
+            bool valid = false;
+            for (OthelloMove* i : possMoves) 
+               if ((*i) == (*m)) {
+                  valid = true;
+                  board.ApplyMove(m);
                }
             }
-            board.ApplyMove(m);
+            if (!valid) {
+               cout << "Invalid Input" << endl;
+            }
+            
          }
          else
             cout << "Invalid input" << endl;
