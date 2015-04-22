@@ -60,16 +60,46 @@ int main(int argc, char* argv[]) {
       }
       cout << endl;
       // Ask to input a command
-      string a;
-      getline(std::cin, a);
-      *m = a;
-      board.ApplyMove(m);
+      string command;
+      getline(std::cin, command);
+      stringstream ss(command);
+      ss >> command;
+      if (command == "move") {
+         if (!ss.eof()) {
+            ss >> command;
+            *m = command;
+            bool valid = true;
+            for (OthelloMove* i : possMoves) {
+               if (i == m) {
+                  valid = false;
+                  cout << "Invalid Input";
+               }
+            }
+            board.ApplyMove(m);
+         }
+         else
+            cout << "Invalid input" << endl;
+      }
+
+      if (command == "undo") {
+         if (!ss.eof()) {
+            ss >> command;
+            istringstream buffer(command);
+            int undoMove;
+            buffer >> undoMove;
+            for (int i = 0; i < undoMove; i++) {
+               board.UndoLastMove();
+            }
+         }
+      }
+      
+      //*m = ;
 
      for (OthelloMove* i : possMoves) {
          delete i;
       }
       possMoves.clear();
-      system("pause");
+
       // Command loop:
          // move (r,c)
          // undo n

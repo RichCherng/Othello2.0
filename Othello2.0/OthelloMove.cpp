@@ -23,11 +23,14 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
    }
    else {
       //string r = move.substr(1, move.find(","));
-      mRow = atoi(move.substr(1, move.find(",")).c_str());
+     // mRow = atoi(move.substr(1, move.find(",")).c_str());
       //cout << mRow;
-      mCol = atoi( move.substr( move.find(",") + 2,
-         move.find(")")).c_str() );
+     // mCol = atoi( move.substr( move.find(",") + 1,
+         //move.find(")")).c_str() );
       //need to check inbound
+      stringstream ss(move);
+      char temp;
+      ss >> temp >> mRow >> temp >> mCol >> temp;
       return *this;
    }
 }
