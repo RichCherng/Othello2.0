@@ -55,6 +55,7 @@ int main(int argc, char* argv[]) {
       cout << v << endl;
       // Print all possible moves
       board.GetPossibleMoves(&possMoves);
+      cout << "Board Possible Move: ";
       for (OthelloMove* i : possMoves) {
          cout << (string)(*i) << " ";
       }
@@ -82,17 +83,21 @@ int main(int argc, char* argv[]) {
             }
             
             bool valid = false;
+            
             for (OthelloMove* i : possMoves) {
                if ((*i) == (*m)) {
                   valid = true;
                   board.ApplyMove(m);
                }
             }
-            if (!valid && !m->IsPass())
+            if (!valid) {
+               cout << "Invalid move" << endl;
+            }
+            /*if (!valid && !m->IsPass())
                cout << "Invalid move" << endl;
             else if (m->IsPass()){
                board.ApplyMove(m);
-            }
+            }*/
          }
          else
             cout << "Invalid input" << endl;
@@ -145,4 +150,5 @@ int main(int argc, char* argv[]) {
          // quit
       
    } while (!board.IsFinished()); 
+   system("pause");
 }
