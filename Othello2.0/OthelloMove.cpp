@@ -28,7 +28,7 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       stringstream ss(move);
       char temp;
       ss >> temp >> mRow >> temp >> mCol >> temp;
-      if (OthelloBoard::InBounds(mRow, mCol) ){
+      if (OthelloBoard::InBounds(mRow, mCol)){
          return *this;
       }
       throw OthelloException("Out of BOUND! Fail BRuh!!!");

@@ -88,8 +88,11 @@ int main(int argc, char* argv[]) {
                   board.ApplyMove(m);
                }
             }
-            if (!valid)
+            if (!valid && !m->IsPass())
                cout << "Invalid move" << endl;
+            else if (m->IsPass()){
+               board.ApplyMove(m);
+            }
          }
          else
             cout << "Invalid input" << endl;
@@ -110,10 +113,10 @@ int main(int argc, char* argv[]) {
       if (command == "showValue") {
          cout << "Board Value: " << board.GetValue() << endl;
       }
-      if (command == "pass") {
+     /* if (command == "pass") {
          *m = command;
          board.ApplyMove(m);
-      }
+      }*/
       if (command == "showHistory") {
          
          /*for (OthelloMove* m : (*board.GetMoveHistory())) {
