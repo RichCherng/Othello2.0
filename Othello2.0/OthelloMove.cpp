@@ -31,7 +31,7 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       if (OthelloBoard::InBounds(mRow, mCol) ){
          return *this;
       }
-      throw OthelloException("Fail BRuh!!!");
+      throw OthelloException("Out of BOUND! Fail BRuh!!!");
    }
 }
 

@@ -74,7 +74,13 @@ int main(int argc, char* argv[]) {
          if (!ss.eof()) {
             ss >> command;
             m = board.CreateMove();
-            *m = command;
+            try { *m = command; 
+            }
+            catch (OthelloException &e) {
+               delete m;
+               cout << e.what() << endl;
+            }
+            
             bool valid = false;
             for (OthelloMove* i : possMoves) {
                if ((*i) == (*m)) {
@@ -82,10 +88,8 @@ int main(int argc, char* argv[]) {
                   board.ApplyMove(m);
                }
             }
-            if (!valid) {
-               cout << "Invalid Input" << endl;
-            }
-            
+            if (!valid)
+               cout << "Invalid move" << endl;
          }
          else
             cout << "Invalid input" << endl;
@@ -115,7 +119,10 @@ int main(int argc, char* argv[]) {
          /*for (OthelloMove* m : (*board.GetMoveHistory())) {
             cout << (string)(*m) << endl;
          }*/
-
+         vector<OthelloMove*> lis(*(board.GetMoveHistory()));
+         for (int i = lis.size(); i > 0; i--) {
+            cout << (string)(*lis[i-1]) << endl;
+         }
       }
 
      for (OthelloMove* i : possMoves) {
