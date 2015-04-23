@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
    OthelloView v(&board); // a View for outputting the board via operator<<
    string userInput; // a string to hold the user's command choice
    vector<OthelloMove *> possMoves; // a holder for possible moves
-   OthelloMove *m = board.CreateMove();
+   OthelloMove *m = nullptr;
 
    
    // Start with this DEBUGGING CODE to make sure your basic OthelloMove and 
@@ -59,6 +59,12 @@ int main(int argc, char* argv[]) {
          cout << (string)(*i) << " ";
       }
       cout << endl;
+      if (board.GetNextPlayer() > 0) {
+
+         cout << "Black Turn" << endl;
+      }
+      else
+         cout << "White Turn" << endl;
       // Ask to input a command
       string command;
       getline(std::cin, command);
@@ -67,9 +73,10 @@ int main(int argc, char* argv[]) {
       if (command == "move") {
          if (!ss.eof()) {
             ss >> command;
+            m = board.CreateMove();
             *m = command;
             bool valid = false;
-            for (OthelloMove* i : possMoves) 
+            for (OthelloMove* i : possMoves) {
                if ((*i) == (*m)) {
                   valid = true;
                   board.ApplyMove(m);
@@ -96,7 +103,20 @@ int main(int argc, char* argv[]) {
          }
       }
       
-      //*m = ;
+      if (command == "showValue") {
+         cout << "Board Value: " << board.GetValue() << endl;
+      }
+      if (command == "pass") {
+         *m = command;
+         board.ApplyMove(m);
+      }
+      if (command == "showHistory") {
+         
+         /*for (OthelloMove* m : (*board.GetMoveHistory())) {
+            cout << (string)(*m) << endl;
+         }*/
+
+      }
 
      for (OthelloMove* i : possMoves) {
          delete i;

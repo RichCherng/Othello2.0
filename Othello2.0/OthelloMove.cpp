@@ -1,6 +1,9 @@
 
 #include <sstream>
 #include "OthelloMove.h"
+#include "OthelloBoard.h"
+#include "OthelloExceptions.h"
+
 int OthelloMove::mOnHeap = 0;
 
 using namespace std;
@@ -22,16 +25,13 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       return *this;
    }
    else {
-      //string r = move.substr(1, move.find(","));
-     // mRow = atoi(move.substr(1, move.find(",")).c_str());
-      //cout << mRow;
-     // mCol = atoi( move.substr( move.find(",") + 1,
-         //move.find(")")).c_str() );
-      //need to check inbound
       stringstream ss(move);
       char temp;
       ss >> temp >> mRow >> temp >> mCol >> temp;
-      return *this;
+      if (OthelloBoard::InBounds(mRow, mCol) ){
+         return *this;
+      }
+      throw OthelloException("Fail BRuh!!!");
    }
 }
 
