@@ -125,6 +125,10 @@ int main(int argc, char* argv[]) {
          }
       }
 
+      if (command == "quit") {
+         break;
+      }
+
      for (OthelloMove* i : possMoves) {
          delete i;
       }
