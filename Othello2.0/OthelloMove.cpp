@@ -25,13 +25,23 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       return *this;
    }
    else {
-      stringstream ss(move);
+      //stringstream ss(move);
       char temp;
+//int tRow;
+      istringstream ss(move);
+      //istringstream cl;
       ss >> temp >> mRow >> temp >> mCol >> temp;
+      //ss >> temp;
+      //ss >> mRow;
+      //ss >> temp;
+      //ss >> mCol;
+      //mRow = (int)tRow;
       if (OthelloBoard::InBounds(mRow, mCol)){
          return *this;
       }
+      return *this;
       throw OthelloException("Out of BOUND! Fail BRuh!!!");
+      
    }
 }
 

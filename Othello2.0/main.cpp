@@ -91,6 +91,7 @@ int main(int argc, char* argv[]) {
                }
             }
             if (!valid) {
+               delete m;
                cout << "Invalid move" << endl;
             }
             /*if (!valid && !m->IsPass())
@@ -127,8 +128,15 @@ int main(int argc, char* argv[]) {
          /*for (OthelloMove* m : (*board.GetMoveHistory())) {
             cout << (string)(*m) << endl;
          }*/
+        
          vector<OthelloMove*> lis(*(board.GetMoveHistory()));
+         int turnCount = lis.size();
          for (int i = lis.size(); i > 0; i--) {
+            if (i % 2 == 1) {
+               cout << "Black ";
+            }
+            else
+               cout << "White";
             cout << (string)(*lis[i-1]) << endl;
          }
       }
@@ -150,5 +158,11 @@ int main(int argc, char* argv[]) {
          // quit
       
    } while (!board.IsFinished()); 
+   if (board.GetValue() > 0) {
+      cout << "Black wins" << endl;
+   }
+   else
+      cout << "White win!" << endl;
+
    system("pause");
 }
