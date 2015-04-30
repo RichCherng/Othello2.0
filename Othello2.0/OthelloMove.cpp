@@ -25,23 +25,13 @@ OthelloMove& OthelloMove::operator=(const std::string &move) {
       return *this;
    }
    else {
-      //stringstream ss(move);
       char temp;
-//int tRow;
       istringstream ss(move);
-      //istringstream cl;
       ss >> temp >> mRow >> temp >> mCol >> temp;
-      //ss >> temp;
-      //ss >> mRow;
-      //ss >> temp;
-      //ss >> mCol;
-      //mRow = (int)tRow;
-      if (OthelloBoard::InBounds(mRow, mCol)){
-         return *this;
+      if (!OthelloBoard::InBounds(mRow, mCol)) {
+         throw OthelloException("Out of BOUND!");
       }
       return *this;
-      throw OthelloException("Out of BOUND! Fail BRuh!!!");
-      
    }
 }
 
@@ -51,7 +41,6 @@ bool operator==(const OthelloMove &lhs, const OthelloMove &rhs) {
 
 OthelloMove::operator std::string() const {
    if (mRow == -1 && mCol == -1) {
-      //cout << mRow << endl << mCol << endl;
       return "pass";
    }
    std::ostringstream s;

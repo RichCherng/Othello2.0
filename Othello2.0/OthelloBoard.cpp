@@ -6,60 +6,42 @@ OthelloBoard::OthelloBoard() {
    for (int row = 0; row < BOARD_SIZE; row++) {
       for (int col = 0; col < BOARD_SIZE; col++) {
          mBoard[row][col] = Player::EMPTY;
-         //cout << "initializing board " << mBoard[row][col]  << endl;
       }
    }
    int strPos = 3, SdStrPos = 4;
-   mBoard[strPos][SdStrPos] = Player::BLACK;
-   mBoard[SdStrPos][strPos] = Player::BLACK;
-   mBoard[strPos][strPos] = Player::WHITE;
-   mBoard[SdStrPos][SdStrPos] = Player::WHITE;
+   mBoard[(BOARD_SIZE / 2) - 1][BOARD_SIZE / 2] = Player::BLACK;
+   mBoard[BOARD_SIZE / 2][(BOARD_SIZE / 2) - 1] = Player::BLACK;
+   mBoard[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = Player::WHITE;
+   mBoard[BOARD_SIZE / 2][BOARD_SIZE / 2] = Player::WHITE;
    mNextPlayer = Player::BLACK;
-   //mValue = 0;
-   //mPassCount = 0;
 }
 
 void OthelloBoard::GetPossibleMoves(std::vector<OthelloMove *> *list) const {
    for (int row = 0; row < BOARD_SIZE; row++) {
       for (int col = 0; col < BOARD_SIZE; col++) {
          bool valid = false;
-
-         if (mBoard[row][col] == Player::EMPTY) { //spot is empty
+         if (mBoard[row][col] == Player::EMPTY) {
             for (int r = -1; r <= 1 && valid == false; r++) {
                for (int c = -1; c <= 1 && valid == false; c++) {
                   int bRow = row + r, bCol = col + c;
-                  if ( mBoard[bRow][bCol] == -mNextPlayer 
-                     && !(c == 0 && r == 0)) {    
-                     
-                     //If surrounding spot is in bound and contain opposite player and not contain that spot
-
-                     while (InBounds(bRow, bCol) 
-                        && mBoard[bRow][bCol] == -mNextPlayer //while in bound, contain opposite player and not empty spot
-                        && mBoard[bRow][bCol] != Player::EMPTY) {                      //try to find the currrent player piece
+                  if (mBoard[bRow][bCol] == -mNextPlayer
+                     && !(c == 0 && r == 0)) {
+                     while (InBounds(bRow, bCol)
+                        && mBoard[bRow][bCol] == -mNextPlayer
+                        && mBoard[bRow][bCol] != Player::EMPTY) {
                         bRow += r;
                         bCol += c;
-                        if (mBoard[bRow][bCol] == mNextPlayer 
-                           && InBounds(bRow, bCol)) {     // if see player then add valid
-                           //|| (c == 0 && r == 0)) 
+                        if (mBoard[bRow][bCol] == mNextPlayer
+                           && InBounds(bRow, bCol)) {
                            (*list).push_back(new OthelloMove(row, col));
                            valid = true;
                            break;
-                           // goto here;
                         }
-
-                        
-
                      }
                   }
-                  // if (valid)
-                  //goto here;*/
-                  //break;
                }
             }
          }
-
-
-         // here:
       }
    }
    if ((*list).size() == 0)
@@ -72,8 +54,6 @@ void OthelloBoard::ApplyMove(OthelloMove *move) {
       mHistory.push_back(move);
    }
    else {
-    // OthelloMove t = (*move);
-    // OthelloMove* a = &t;
       mPassCount = 0;
       mHistory.push_back(move);
       mValue += GetNextPlayer();
@@ -91,8 +71,7 @@ void OthelloBoard::ApplyMove(OthelloMove *move) {
                      bRow -= r;
                      bCol -= c;
                      mBoard[bRow][bCol] = GetNextPlayer();
-                     //cout << GetNextPlayer() << endl;
-                     mValue +=  2 * GetNextPlayer();
+                     mValue += 2 * GetNextPlayer();
                   }
                   break;
                }
@@ -111,9 +90,9 @@ void OthelloBoard::UndoLastMove() {
       OthelloMove* m = mHistory.back();
       vector<OthelloMove::FlipSet> flipset = m->mFlips;
       mBoard[(*m).mRow][(*m).mCol] = Player::EMPTY;
-      for (OthelloMove::FlipSet f : flipset) { //go thorugh all direction
-         int bRow = (*m).mRow, bCol = (*m).mCol; //start from the move
-         for (int fliped = 0; fliped < f.switched; fliped++) { //flip back in that direction
+      for (OthelloMove::FlipSet f : flipset) {
+         int bRow = (*m).mRow, bCol = (*m).mCol;
+         for (int fliped = 0; fliped < f.switched; fliped++) {
             bRow += f.rowDelta;
             bCol += f.colDelta;
             mBoard[bRow][bCol] = -mBoard[bRow][bCol];
